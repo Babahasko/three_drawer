@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #game-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info">Camera Position: X: 0, Y: 0, Z: 0<br>Camera Rotation: X: 0°, Y: 0°, Z: 0°</div>
+    <div id="game-info">Command: 0,<br> Points: 0,<br>
+        turn: 0,<br> revievTimeoutSec: 0,<br> tickRemainMs: 0,<br> errors: []</div>
+    <script type="module" src="./src/main.jsx"></script>
+</body>
+
+</html>
