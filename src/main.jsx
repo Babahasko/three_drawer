@@ -3,7 +3,7 @@ import { createScene, renderer, camera, controls } from './scene/sceneSetup.js'
 import { setBackgroundColor } from './colors/colorManager.js';
 import { VoxelWorld, addDataToWorld } from './shapes/voxelMap.js';
 import { createLight } from './scene/light/light.js';
-import { loadTexture, createMaterial, createMesh, TextureColorManager} from './textures/textures.js'
+import { loadTexture, createMaterial, createMesh, TextureColorManager } from './textures/textures.js'
 // import { GameData } from './parser/gameData'
 import { parseSnakes, parseEnemies, parseFood, parseGolden, parseSuspicious, parseFoodPoints } from './parser/parser.js'
 import { Text } from 'troika-three-text'
@@ -18,6 +18,8 @@ setBackgroundColor(scene);
 const light = createLight();
 scene.add(light);
 
+// Добавляем оси
+const axesHelper = new THREE.AxesHelper(5);
 // Размеры мира
 const cellSize = 180;
 const tileSize = 64;
@@ -31,6 +33,9 @@ let currentGameData = null;
 function updateScene(data) {
     // Очищаем старую сцену
     scene.clear();
+    // Добавляем оси
+     // Красный: ось X. Зеленый: ось Y. Синий: ось Z.
+    scene.add(axesHelper)
     scene.add(light);
 
     // Парсим данные
@@ -93,7 +98,7 @@ function addText(food, foodPoints, scene) {
         // Настройка текста
         myText.text = `${pointValue}`; // Текст метки
         myText.fontSize = 1; // Размер шрифта
-        myText.position.set(x+0.25, y+1.2, z+1.1); // Позиция текста (на y+1 выше)
+        myText.position.set(x + 0.25, y + 1.2, z + 1.1); // Позиция текста (на y+1 выше)
         myText.color = 0x000000; // Цвет текста (черный)
     });
 }
@@ -122,7 +127,7 @@ function animate() {
     // Обновляем информацию о игре
     if (currentGameData) {
         const gameInfoElement = document.getElementById('game-info');
-        const {name, turn, reviveTimeoutSec, tickRemainMs, errors, points } = currentGameData;
+        const { name, turn, reviveTimeoutSec, tickRemainMs, errors, points } = currentGameData;
         gameInfoElement.innerHTML = `
         Command: ${name},<br> Points: ${points},<br>
         turn: ${turn},<br> revievTimeoutSec: ${reviveTimeoutSec},<br> tickRemainMs: ${tickRemainMs},<br> errors: ${errors}
@@ -139,13 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
         webSocketManager.sendMessage({ id: "front" });
     });
 
-    webSocketManager.onMessage((data) => { 
+    webSocketManager.onMessage((data) => {
         console.log("Получено сообщение от сервера:", data)
         console.log(data.message)
-        if (data && data.message){
+        if (data && data.message) {
             updateScene(data.message);
         }
-        
+
     });
 
     webSocketManager.onError((error) => {

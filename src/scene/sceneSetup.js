@@ -16,9 +16,9 @@ export const camera = new THREE.PerspectiveCamera(
 );
 
 // Позиция камеры
-camera.position.z = 7;
-camera.position.x = 1;
-camera.position.y = 2;
+camera.position.x = 0;
+camera.position.y = 10;
+camera.position.z = 8;
 // Направляем камеру на целевую точку
 camera.lookAt(0, 0, 0); // Камера смотрит на центр координат
 
@@ -29,6 +29,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // Даём возможность вращения камеры
 export const controls = new OrbitControls( camera, renderer.domElement );
 controls.target.set(0, 0, 0); // Устанавливаем целевую точку для OrbitControls
-controls.rotateSpeed = 0.1;
+controls.rotateSpeed = 0.5;
 controls.update();
 document.body.appendChild(renderer.domElement);
